@@ -4,50 +4,46 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity : AppCompatActivity() {
-    private var fb =FirebaseAuth.getInstance()
+    private var firebaseAuth =FirebaseAuth.getInstance()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val sa=findViewById<Button>(R.id.sign_up)
-        sa.setOnClickListener{
-            poo()
-        }
     }
 
     override fun onStart() {
         super.onStart()
-        val cur=fb.currentUser
-        godash(cur)
+        val cur=firebaseAuth.currentUser
+        alreadyLoggedIn(cur)
     }
-    fun poo()
+
+    fun userSignIn(view :View)
     {
 
-        val em=findViewById<EditText>(R.id.usr)
-        val pas=findViewById<EditText>(R.id.pass)
+        val userEmailid=findViewById<EditText>(R.id.user_emailid)
+        val userPassword=findViewById<EditText>(R.id.user_login_password)
 
-        if(em.text.toString().isEmpty())
+        if(userEmailid.text.toString().isEmpty())
         {
-            em.error="Please enter a valid Email"
+            userEmailid.error="Please enter a valid Email"
 
         }
-        if(pas.text.toString().length<6)
+        if(userPassword.text.toString().length<6)
         {
-            pas.error="Please enter a strong password with more than 6 characters"
+            userPassword.error="Please enter a strong password with more than 6 characters"
 
         }
-        fb.signInWithEmailAndPassword(em.text.toString(),pas.text.toString())
+        firebaseAuth.signInWithEmailAndPassword(userEmailid.text.toString(),userPassword.text.toString())
             .addOnCompleteListener(this){task ->
                 if(task.isSuccessful)
                 {
-                    val usr=fb.currentUser
-                    godash(usr)
+                    val currentUser=firebaseAuth.currentUser
+                    alreadyLoggedIn(currentUser)
                 }
                 else
                 {
@@ -55,13 +51,12 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-    fun godash(usr:FirebaseUser?)
+    private fun alreadyLoggedIn(currentUser:FirebaseUser?)
     {
-        if(usr!=null)
+        if(currentUser!=null)
         {
-            if(usr.isEmailVerified) {
+            if(currentUser.isEmailVerified) {
                 startActivity(Intent(this, MainPage::class.java))
-
                 finish()
             }
             else
@@ -74,4 +69,5 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this,"Try again later",Toast.LENGTH_LONG).show()
         }
     }
+
 }

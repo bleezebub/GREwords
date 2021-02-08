@@ -22,24 +22,24 @@ class MainActivity : AppCompatActivity() {
     fun register(view:View)
     {
 
-        val user_emailid=findViewById<EditText>(R.id.user_email_Id)
-        val user_password=findViewById<EditText>(R.id.user_password)
-        val user_phonenumber=findViewById<EditText>(R.id.user_phonenumber) // to use.
+        val userEmailid=findViewById<EditText>(R.id.user_email_Id)
+        val userPassword=findViewById<EditText>(R.id.user_password)
+        val userPhonenumber=findViewById<EditText>(R.id.user_phonenumber) // to use.
 
-        if(user_emailid.text.toString().isEmpty())
+        if(userEmailid.text.toString().isEmpty())
         { // In case the user emailid entered is empty
-            user_emailid.error="Please enter a valid Email"
-            user_emailid.requestFocus()
+            userEmailid.error="Please enter a valid Email"
+            userEmailid.requestFocus()
             return
         }
-        if(user_password.text.toString().length<6) // password strength
+        if(userPassword.text.toString().length<6) // password strength
         {
-            user_password.error="Please enter a strong password with more than 6 characters"
-            user_password.requestFocus()
+            userPassword.error="Please enter a strong password with more than 6 characters"
+            userPassword.requestFocus()
             return
 
         }
-        firebaseAuth.createUserWithEmailAndPassword(user_emailid.text.toString(),user_password.text.toString())
+        firebaseAuth.createUserWithEmailAndPassword(userEmailid.text.toString(),userPassword.text.toString())
             .addOnCompleteListener(this){task->
                 if(task.isSuccessful)
                 {
@@ -62,4 +62,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
+
 }
