@@ -1,4 +1,3 @@
-s
 package com.example.grewords
 
 import android.content.Intent
