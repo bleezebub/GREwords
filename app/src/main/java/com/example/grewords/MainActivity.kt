@@ -1,3 +1,4 @@
+s
 package com.example.grewords
 
 import android.content.Intent
@@ -7,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
      private var firebaseAuth=FirebaseAuth.getInstance()
@@ -14,6 +16,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    override fun onStart() {
+        super.onStart()
+        alreadyLoggedIn(firebaseAuth.currentUser)
+    }
+
+    private fun alreadyLoggedIn(currentUser: FirebaseUser?) {
+        if(currentUser!=null)
+        {
+            if(currentUser.isEmailVerified) {
+                startActivity(Intent(this, MainPage::class.java))
+                finish()
+            }
+        }
+
+    }
+
     fun login(view:View)
     { // Login activity go
         startActivity(Intent(this,LoginActivity::class.java))

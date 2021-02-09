@@ -18,8 +18,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val cur=firebaseAuth.currentUser
-        alreadyLoggedIn(cur)
+        alreadyLoggedIn(firebaseAuth.currentUser)
     }
 
     fun userSignIn(view :View)
