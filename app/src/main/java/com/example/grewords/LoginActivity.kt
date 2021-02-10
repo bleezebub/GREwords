@@ -63,10 +63,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this,"Verify your email",Toast.LENGTH_LONG).show()
             }
         }
-        else
-        {
-            Toast.makeText(this,"Try again later",Toast.LENGTH_LONG).show()
-        }
     }
 
 }

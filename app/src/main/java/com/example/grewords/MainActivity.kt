@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(this){task->
                 if(task.isSuccessful)
                 {
-                    val current_user=firebaseAuth.currentUser
-                    current_user?.sendEmailVerification() //send user verification email
+                    val currentUser=firebaseAuth.currentUser
+                    currentUser?.sendEmailVerification() //send user verification email
                         ?.addOnCompleteListener{task1 ->
                             if(task1.isSuccessful)
                             {
